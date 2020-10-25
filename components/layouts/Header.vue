@@ -14,17 +14,28 @@
     </button>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-        <a class="nav-link text-white" href="#">Sign out</a>
+        <a class="nav-link text-white" href="#" @click="logout">
+          Sign out
+        </a>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
       title: 'PT. Nindya Karya'
+    }
+  },
+  methods: {
+    ...mapMutations(['SET_IS_AUTH']),
+    logout () {
+      this.SET_IS_AUTH(false)
+      console.log(this.$router)
+      this.$router.redirect('/login')
     }
   }
 }

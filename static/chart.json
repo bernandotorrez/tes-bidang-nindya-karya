@@ -1,0 +1,70 @@
+{
+    "barChartData": {
+      "labels": [
+        "20/10/2020",
+        "21/10/2020",
+        "22/10/2020"
+      ],
+      "datasets": [
+        {
+          "label": "Wilayah 1",
+          "data": [100000, 0, 0, 0, 0],
+          "backgroundColor": "#28a745"
+        },
+        {
+          "label": "Wilayah 2",
+          "data": [0, 150000, 0, 0, 0],
+          "backgroundColor": "#FD7E14"
+        },
+        {
+          "label": "Wilayah 3",
+          "data": [0, 0, 200000, 0, 0],
+          "backgroundColor": "#DC3545"
+        },
+        {
+          "label": "Wilayah 4",
+          "data": [0, 300000, 0, 0, 0],
+          "backgroundColor": "#1b2b5a"
+        },
+        {
+          "label": "Wilayah 5",
+          "data": [0, 0, 300000, 0, 0],
+          "backgroundColor": "#229ea9"
+        }
+      ]
+    },
+    "barChartOptions": {
+      "responsive": true,
+      "legend": {
+        "display": true
+      },
+      "title": {
+        "display": true,
+        "text": "Grafik Produksi Wilayah",
+        "fontSize": 24,
+        "fontColor": "#6b7280"
+      },
+      "tooltips": {
+        "backgroundColor": "#17BF62"
+      },
+      "scales": {
+        "xAxes": [
+          {
+            "gridLines": {
+              "display": false
+            }
+          }
+        ],
+        "yAxes": [
+          {
+            "ticks": {
+              "beginAtZero": true
+            },
+            "gridLines": {
+              "display": false
+            }
+          }
+        ]
+      }
+    }
+  }

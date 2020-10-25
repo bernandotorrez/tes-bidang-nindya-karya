@@ -9,7 +9,7 @@
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">
-                      Welcome Back!
+                      Login
                     </h1>
                   </div>
 
@@ -38,14 +38,6 @@
                         class="form-control form-control-user"
                       >
                     </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input id="customCheck" type="checkbox" class="custom-control-input"> <label
-                          for="customCheck"
-                          class="custom-control-label"
-                        >Remember Me</label>
-                      </div>
-                    </div>
                     <button class="btn btn-primary btn-user btn-block" type="button" @click="userLoggin">
                       Login
                     </button>
@@ -65,7 +57,6 @@
 import { mapMutations } from 'vuex'
 
 export default {
-  auth: false,
   data () {
     return {
       auth: {
@@ -80,7 +71,7 @@ export default {
     userLoggin () {
       if (this.auth.email === 'bernandotorrez4@gmail.com' && this.auth.password === 'B3rnando') {
         this.SET_IS_AUTH(true)
-        this.$router.push('/')
+        this.$router.push('/dashboard')
       } else {
         this.loginFailed = true
       }
