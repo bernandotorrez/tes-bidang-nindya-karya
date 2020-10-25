@@ -37,6 +37,26 @@
       </div>
 
       <div v-if="isShowReportTable" class="table-responsive">
+        <export-excel
+          class="btn btn-outline-success mb-3"
+          worksheet="laporan_produksi"
+          name="laporan_produksi.xls"
+          :data="filterdReportData"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-download"
+          ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
+          Export to Excel
+        </export-excel>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -47,8 +67,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in filterdReportData" :key="item.no">
-              <td>{{ index+1 }}</td>
+            <tr v-for="item in filterdReportData" :key="item.no">
+              <td>{{ item.no }}</td>
               <td>{{ item.tanggal }}</td>
               <td>{{ item.wilayah }}</td>
               <td>{{ formatNumber(item.produksi) }}</td>
@@ -76,7 +96,6 @@ export default {
       tanggalSelected: '',
       isShowReportTable: false,
       filterdReportData: [],
-      no: 0,
       totalProduksi: 0,
       isButtonSubmitted: false
     }
@@ -110,10 +129,16 @@ export default {
     reportProcess () {
       this.filterdReportData = []
       this.totalProduksi = 0
-      this.reportData.forEach((x) => {
-        if (x.tanggal === this.tanggalSelected) {
-          this.filterdReportData.push(x)
-          this.totalProduksi += x.produksi
+      let number = 1
+      this.reportData.forEach((item) => {
+        if (item.tanggal === this.tanggalSelected) {
+          this.filterdReportData.push({
+            no: number++,
+            tanggal: item.tanggal,
+            wilayah: item.wilayah,
+            produksi: item.produksi
+          })
+          this.totalProduksi += item.produksi
         }
       })
 
