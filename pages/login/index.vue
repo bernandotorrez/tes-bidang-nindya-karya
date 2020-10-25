@@ -9,7 +9,7 @@
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">
-                      Welcome Back!
+                      Login
                     </h1>
                   </div>
 
@@ -38,16 +38,13 @@
                         class="form-control form-control-user"
                       >
                     </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input id="customCheck" type="checkbox" class="custom-control-input"> <label
-                          for="customCheck"
-                          class="custom-control-label"
-                        >Remember Me</label>
-                      </div>
-                    </div>
-                    <button class="btn btn-primary btn-user btn-block" type="button" @click="userLoggin">
+                    <button v-if="!isLoading" class="btn btn-primary btn-user btn-block" type="button" @click="userLoggin">
                       Login
+                    </button>
+
+                    <button v-if="isLoading" class="btn btn-primary btn-user btn-block" type="button" disabled>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                      Logging In...
                     </button>
                     <hr>
                   </form>
@@ -65,23 +62,35 @@
 import { mapMutations } from 'vuex'
 
 export default {
-  auth: false,
   data () {
     return {
       auth: {
         email: null,
         password: null
       },
-      loginFailed: false
+      loginFailed: false,
+      isLoading: false
     }
   },
+  mounted () {
+    this.SET_IS_AUTH(false)
+  },
   methods: {
-    ...mapMutations(['SET_IS_AUTH']),
+    ...mapMutations(['SET_IS_AUTH', 'SET_USER']),
     userLoggin () {
+      this.isLoading = true
+      setTimeout(() => {
+        this.loginProcess()
+      }, 2000)
+    },
+    loginProcess () {
       if (this.auth.email === 'bernandotorrez4@gmail.com' && this.auth.password === 'B3rnando') {
+        this.isLoading = false
         this.SET_IS_AUTH(true)
-        this.$router.push('/')
+        this.SET_USER({ email: this.auth.email, nama: 'Bernand Dayamuntari Hermawan' })
+        this.$router.push('/dashboard')
       } else {
+        this.isLoading = false
         this.loginFailed = true
       }
     }
