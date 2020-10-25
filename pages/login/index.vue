@@ -66,11 +66,15 @@ export default {
       loginFailed: false
     }
   },
+  mounted () {
+    this.SET_IS_AUTH(false)
+  },
   methods: {
-    ...mapMutations(['SET_IS_AUTH']),
+    ...mapMutations(['SET_IS_AUTH', 'SET_USER']),
     userLoggin () {
       if (this.auth.email === 'bernandotorrez4@gmail.com' && this.auth.password === 'B3rnando') {
         this.SET_IS_AUTH(true)
+        this.SET_USER({ email: this.auth.email, nama: 'Bernand Dayamuntari Hermawan' })
         this.$router.push('/dashboard')
       } else {
         this.loginFailed = true

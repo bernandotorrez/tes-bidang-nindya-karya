@@ -12,30 +12,39 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
-    <ul class="navbar-nav px-3">
-      <li class="nav-item text-nowrap">
-        <a class="nav-link text-white" href="#" @click="logout">
-          Sign out
-        </a>
+    <ul class="nav nav-pills">
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link text-white dropdown-toggle"
+          data-toggle="dropdown"
+          href="#"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >Welcome, {{ user.nama }}</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#" @click="logout">Logout</a>
+        </div>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+
 export default {
   data () {
     return {
-      title: 'PT. Nindya Karya'
+      title: 'PT. Nindya Karya',
+      user: null
     }
   },
+  created () {
+    this.user = this.$store.state.user
+  },
   methods: {
-    ...mapMutations(['SET_IS_AUTH']),
     logout () {
-      this.SET_IS_AUTH(false)
-      console.log(this.$router)
-      this.$router.redirect('/login')
+      this.$router.push('/login')
     }
   }
 }
