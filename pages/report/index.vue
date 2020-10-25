@@ -20,6 +20,7 @@
               type="button"
               aria-haspopup="true"
               aria-expanded="false"
+              :disabled="!tanggalSelected"
             >
               Cari
             </button>
@@ -27,7 +28,15 @@
         </div>
       </div>
 
-      <div v-if="isTanggalSubmitted" class="table-responsive">
+      <div v-if="isButtonSubmitted" class="text-center mt-4">
+        <div class="spinner-border text-success mt-4" style="width: 5rem; height: 5rem;" role="status">
+          <span class="sr-only texgt-center">Loading Table...</span>
+        </div>
+        <p />
+        <span class="text-center mt-1 text-warning">Loading Table ...</span>
+      </div>
+
+      <div v-if="isShowReportTable" class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -38,17 +47,18 @@
             </tr>
           </thead>
           <tbody>
-            <!-- <tr v-for="table in tableData" :key="table.no">
-              <td>{{ table.no }}</td>
-              <td>{{ table.tanggal }}</td>
-              <td>{{ table.wilayah }}</td>
-              <td>{{ formatNumber(table.produksi) }}</td>
-            </tr> -->
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
+            <tr v-for="(item, index) in filterdReportData" :key="item.no">
+              <td>{{ index+1 }}</td>
+              <td>{{ item.tanggal }}</td>
+              <td>{{ item.wilayah }}</td>
+              <td>{{ formatNumber(item.produksi) }}</td>
+            </tr>
+
+            <tr class="font-weight-bold">
+              <td colspan="3" class="text-right">
+                Total Produksi :
+              </td>
+              <td>{{ formatNumber(totalProduksi) }}</td>
             </tr>
           </tbody>
         </table>
@@ -64,7 +74,11 @@ export default {
       reportData: null,
       reportDate: null,
       tanggalSelected: '',
-      isTanggalSubmitted: false
+      isShowReportTable: false,
+      filterdReportData: [],
+      no: 0,
+      totalProduksi: 0,
+      isButtonSubmitted: false
     }
   },
   mounted () {
@@ -87,8 +101,29 @@ export default {
       this.reportDate = result
     },
     showReport () {
-      this.isTanggalSubmitted = true
-      console.log(this.tanggalSelected)
+      this.isButtonSubmitted = true
+      this.isShowReportTable = false
+      setTimeout(() => {
+        this.reportProcess()
+      }, 2000)
+    },
+    reportProcess () {
+      this.filterdReportData = []
+      this.totalProduksi = 0
+      this.reportData.forEach((x) => {
+        if (x.tanggal === this.tanggalSelected) {
+          this.filterdReportData.push(x)
+          this.totalProduksi += x.produksi
+        }
+      })
+
+      this.isButtonSubmitted = false
+      this.isShowReportTable = true
+    },
+    formatNumber (number) {
+      const parts = number.toString().split('.')
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+      return parts.join(',')
     }
   }
 }

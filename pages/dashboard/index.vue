@@ -46,6 +46,12 @@
               <td>{{ table.wilayah }}</td>
               <td>{{ formatNumber(table.produksi) }}</td>
             </tr>
+            <tr class="font-weight-bold">
+              <td colspan="3" class="text-right">
+                Total Produksi :
+              </td>
+              <td>{{ formatNumber(totalProduksi) }}</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -62,7 +68,8 @@ export default {
       barChartOptions: null,
       isChartLoaded: false,
       isTableLoaded: false,
-      tableData: null
+      tableData: null,
+      totalProduksi: 0
     }
   },
   mounted () {
@@ -86,6 +93,10 @@ export default {
 
       this.tableData = data
       this.isTableLoaded = true
+
+      data.forEach((x) => {
+        this.totalProduksi += x.produksi
+      })
     },
     formatNumber (number) {
       const parts = number.toString().split('.')
