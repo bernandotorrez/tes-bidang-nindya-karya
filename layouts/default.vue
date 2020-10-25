@@ -23,7 +23,7 @@ export default {
     'app-sidebar': Sidebar
   },
   computed: {
-    ...mapState(['isAuth']) // JADI ISAUTH KITA AMBIL DARI STATE INDEX.JSS
+    ...mapState(['isAuth'])
   }
 }
 </script>

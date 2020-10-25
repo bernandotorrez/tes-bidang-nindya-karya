@@ -7,18 +7,30 @@
         </h1>
       </div>
 
-      <div v-if="!isChartLoaded" class="alert alert-info text-center">
-        Loading Chart...
+      <div v-if="!isChartLoaded" class="text-center mt-4">
+        <div class="spinner-border text-success mt-4" style="width: 5rem; height: 5rem;" role="status">
+          <span class="sr-only texgt-center">Loading Chart...</span>
+        </div>
+        <p />
+        <span class="text-center mt-1 text-warning">Loading Chart ...</span>
       </div>
 
       <bar-chart v-if="isChartLoaded" :data="barChartData" :options="barChartOptions" :height="200" :width="400" />
 
-      <h2>Table</h2>
-      <div v-if="!isTableLoaded" class="alert alert-info text-center">
-        Loading Table...
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">
+          Table
+        </h1>
+      </div>
+      <div v-if="!isTableLoaded" class="text-center mt-4">
+        <div class="spinner-border text-success mt-4" style="width: 5rem; height: 5rem;" role="status">
+          <span class="sr-only texgt-center">Loading Table...</span>
+        </div>
+        <p />
+        <span class="text-center mt-1 text-warning">Loading Table ...</span>
       </div>
       <div v-if="isTableLoaded" class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th>No</th>
