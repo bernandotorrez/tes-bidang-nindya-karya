@@ -4,7 +4,7 @@
       <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <nuxt-link class="nav-link active" to="/dashboard">
+            <nuxt-link :class="[currentPage.includes('dashboard') ? active: nonactive]" to="/dashboard">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -21,7 +21,7 @@
             </nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link class="nav-link active" to="/report">
+            <nuxt-link :class="[currentPage.includes('report') ? active: nonactive]" to="/report">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -45,6 +45,16 @@
 
 <script>
 export default {
-
+  data () {
+    return {
+      active: 'nav-link active',
+      nonactive: 'nav-link'
+    }
+  },
+  computed: {
+    currentPage () {
+      return this.$route.path
+    }
+  }
 }
 </script>
