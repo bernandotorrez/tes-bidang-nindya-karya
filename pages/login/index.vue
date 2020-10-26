@@ -18,6 +18,10 @@
                     Email or Password is Wrong!
                   </div>
 
+                  <div class="text-center mb-4">
+                    <img :src="require('@/static/logo.png')" width="200" height="400" alt="Nindya Karya" class="img-thumbnail">
+                  </div>
+
                   <form class="user">
                     <div class="form-group">
                       <input
